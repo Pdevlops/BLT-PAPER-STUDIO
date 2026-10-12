@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BTL Paper Studio</title>
+<style>
+:root{--navy:#172b4d;--blue:#315ee7;--blue2:#eaf0ff;--ink:#182230;--muted:#64748b;--line:#dce3ed;--bg:#f5f7fb;--white:#fff;--green:#16794b;--amber:#9a5b00;--red:#b42318}
+*{box-sizing:border-box}body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink);background:var(--bg)}button,input,textarea,select{font:inherit}button{cursor:pointer;border:0;border-radius:9px;padding:10px 14px;font-weight:650;transition:.15s}button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:3px solid #9db5ff;outline-offset:2px}.primary{background:var(--blue);color:white}.primary:hover{background:#244bd0}.secondary{background:white;border:1px solid var(--line);color:var(--ink)}.danger{color:var(--red);background:#fff0ef;border:1px solid #ffd4d0}.small{padding:6px 9px;font-size:12px}.app{min-height:100vh}.sidebar{position:fixed;inset:0 auto 0 0;width:232px;background:var(--navy);color:#fff;padding:24px 16px;display:flex;flex-direction:column;gap:26px}.brand{display:flex;gap:11px;align-items:center;padding:0 7px}.logo{height:38px;width:38px;background:#fff;color:var(--blue);border-radius:12px;display:grid;place-items:center;font-weight:900;font-size:18px}.brand strong{display:block;font-size:16px;letter-spacing:-.3px}.brand span{font-size:11px;color:#b9c7df}.nav-label{color:#9fb0cb;font-size:10px;letter-spacing:1.4px;font-weight:800;padding:0 10px}.nav{display:grid;gap:5px}.nav button{background:transparent;color:#dbe5f5;text-align:left;font-weight:550;display:flex;gap:12px;align-items:center;padding:12px 11px}.nav button.active,.nav button:hover{background:#2b4165;color:#fff}.nav .ico{width:19px;text-align:center}.sidebar-foot{margin-top:auto;border-top:1px solid #334768;padding:18px 9px;color:#aebdd4;font-size:12px;line-height:1.6}.main{margin-left:232px}.topbar{height:70px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 32px;position:sticky;top:0;z-index:5}.crumb{font-size:13px;color:var(--muted)}.crumb strong{color:var(--ink)}.top-actions{display:flex;gap:9px;align-items:center}.avatar{width:34px;height:34px;border-radius:50%;background:var(--blue2);color:var(--blue);display:grid;place-items:center;font-weight:800;margin-left:5px}.content{padding:28px 32px 60px;max-width:1500px;margin:auto}.page-head{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;margin-bottom:24px}.eyebrow{color:var(--blue);font-size:11px;letter-spacing:1.5px;font-weight:850;text-transform:uppercase}.page-head h1{font-size:27px;letter-spacing:-.8px;margin:6px 0}.sub{color:var(--muted);font-size:14px;margin:0;line-height:1.6}.pill{font-size:11px;border-radius:99px;padding:5px 9px;background:#f1f5f9;color:#526176;font-weight:750;display:inline-flex;align-items:center;gap:5px}.pill.green{background:#e6f7ee;color:var(--green)}.pill.amber{background:#fff4dc;color:var(--amber)}.pill.blue{background:var(--blue2);color:var(--blue)}.grid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(390px,.85fr);gap:20px;align-items:start}.preview-col{position:sticky;top:88px;align-self:start;max-height:calc(100vh - 105px);overflow:auto;scrollbar-width:thin}.preview-panel .panel-body{padding:14px}.preview-paper{overflow-wrap:anywhere}.panel{background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden;margin-bottom:18px;box-shadow:0 2px 7px #14233a05}.panel-head{padding:17px 20px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:12px}.panel-head h2{font-size:15px;margin:0;letter-spacing:-.2px}.panel-body{padding:20px}.fields{display:grid;grid-template-columns:1fr 1fr;gap:14px}.field{display:flex;flex-direction:column;gap:6px;min-width:0}.field.full{grid-column:1/-1}.field label{font-size:12px;font-weight:750;color:#475569}.field input,.field textarea,.field select{width:100%;border:1px solid #d6deea;border-radius:8px;padding:10px 11px;color:var(--ink);background:#fff;min-width:0}.field textarea{resize:vertical;min-height:74px}.field input::placeholder,.field textarea::placeholder{color:#a0aaba}.help{font-size:11px;color:var(--muted);line-height:1.5}.outcomes{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}.outcome{border:1px solid #d9e2f1;background:#f8faff;border-radius:8px;padding:6px 8px;display:flex;align-items:center;gap:6px;font-size:12px}.outcome input{width:15px}.section-title{font-size:12px;font-weight:850;color:#526176;letter-spacing:.8px;text-transform:uppercase;margin:3px 0 12px}.table-wrap{overflow-x:auto}.qtable{border-collapse:collapse;width:100%;min-width:0;table-layout:fixed}.qtable th{font-size:10px;text-transform:uppercase;letter-spacing:.7px;color:#64748b;background:#f7f9fc;text-align:left;padding:11px 10px;border-bottom:1px solid var(--line)}.qtable td{padding:13px 9px;border-bottom:1px solid #e9edf4;vertical-align:top;overflow-wrap:anywhere}.qtable tr:last-child td{border-bottom:0}.qtable input,.qtable textarea,.qtable select{width:100%;border:1px solid #dce3ed;border-radius:7px;padding:8px;font-size:12px;background:white}.qtable textarea{min-width:0;width:100%;min-height:112px;resize:vertical;line-height:1.5}.qnum{font-size:12px;font-weight:800;color:#53657f;padding-top:12px}.btl-select{min-width:0;width:100%}.reason{font-size:10px;color:var(--muted);margin-top:5px;line-height:1.4;max-width:170px}.row-actions{display:flex;gap:4px}.row-actions button{padding:5px 7px;font-size:11px}.section-block{border:1px solid var(--line);border-radius:11px;margin-bottom:14px;overflow:hidden}.section-block-head{background:#f8faff;padding:12px 14px;display:flex;justify-content:space-between;gap:10px;align-items:center;border-bottom:1px solid var(--line)}.section-block-head input{border:1px solid transparent;background:transparent;font-weight:800;max-width:65%;padding:5px}.section-block-head input:focus{background:white;border-color:var(--line)}.section-controls{display:flex;gap:6px;flex-wrap:wrap}.section-instructions{padding:12px 14px;border-bottom:1px solid var(--line)}.section-instructions input{width:100%;border:1px solid var(--line);border-radius:7px;padding:8px;font-size:12px}.section-meta{padding:9px 14px;font-size:11px;color:var(--muted);background:#fff}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:18px}.stat{border:1px solid var(--line);background:#fff;border-radius:12px;padding:15px}.stat span{font-size:11px;color:var(--muted);display:block}.stat strong{font-size:23px;letter-spacing:-.7px;display:block;margin-top:5px}.stat small{font-size:11px;color:var(--muted)}.warning{background:#fff8e8;border:1px solid #f4d99a;color:#7a4b00;border-radius:9px;padding:10px 12px;font-size:12px;line-height:1.5;margin:10px 0}.success{background:#edf9f1;border:1px solid #bde7cc;color:#17623b;border-radius:9px;padding:10px 12px;font-size:12px;margin:10px 0}.preview-paper{background:#fff;border:1px solid #d8dee8;box-shadow:0 6px 24px #172b4d0c;padding:22px 16px;min-height:550px;color:#111827;font-family:Arial,sans-serif}.paper-head{text-align:center;border-bottom:2px solid #1f2937;padding-bottom:12px;margin-bottom:14px}.paper-head h2{font-size:15px;margin:0 0 5px;text-transform:uppercase}.paper-head p{font-size:10px;margin:3px 0}.paper-head h3{font-size:12px;margin:10px 0 4px}.paper-meta{display:grid;grid-template-columns:1fr 1fr;gap:5px 14px;font-size:10px;margin:10px 0}.paper-meta span:nth-child(even){text-align:right}.paper-instructions{font-size:10px;line-height:1.5;margin:12px 0}.preview-paper h4{font-size:11px;text-align:center;margin:17px 0 6px}.preview-paper table{width:100%;border-collapse:collapse;font-size:9px}.preview-paper th,.preview-paper td{border:1px solid #555;padding:5px 4px;vertical-align:top}.preview-paper th{font-weight:700;text-align:center}.preview-paper td:nth-child(1),.preview-paper td:nth-child(3),.preview-paper td:nth-child(4),.preview-paper td:nth-child(5){text-align:center}.paper-footer{font-size:9px;text-align:center;margin-top:16px}.preview-note{font-size:11px;color:var(--muted);margin:10px 0}.hidden{display:none!important}.page{display:none}.page.active{display:block}.batch-box{width:100%;min-height:140px;border:1px solid var(--line);border-radius:8px;padding:12px;resize:vertical}.saved-list{display:grid;gap:10px}.saved-item{display:flex;justify-content:space-between;align-items:center;border:1px solid var(--line);border-radius:10px;padding:14px;gap:12px}.saved-item h3{margin:0 0 5px;font-size:14px}.saved-item p{margin:0;color:var(--muted);font-size:12px}.empty{padding:32px;text-align:center;color:var(--muted);font-size:13px}.footer-note{font-size:11px;color:var(--muted);line-height:1.6}.toast{position:fixed;bottom:22px;right:22px;background:#172b4d;color:#fff;padding:12px 16px;border-radius:10px;box-shadow:0 8px 25px #172b4d30;z-index:20;font-size:13px}.top-actions .secondary{background:#fff}
+/* Spacious question editing cards */
+.section-editor-card{overflow:hidden;margin-bottom:20px}
+.section-editor-card .section-block-head{padding:16px 18px;align-items:center;flex-wrap:wrap;gap:12px}
+.section-name-wrap{display:flex;align-items:center;gap:10px;min-width:180px}
+.section-kicker{font-size:10px;letter-spacing:1px;color:#64748b;font-weight:850;white-space:nowrap}
+.section-name-wrap input{font-size:16px;width:160px;max-width:100%;padding:7px 8px}
+.section-editor-card .section-instructions{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(210px,1fr);gap:16px;padding:16px 18px;background:#fff}
+.section-editor-card .section-instructions input{font-size:13px;padding:10px 11px}
+.question-list{padding:14px;display:grid;gap:14px;background:#f7f9fc}
+.question-card{border:1px solid #dce3ed;border-radius:12px;background:#fff;overflow:hidden;box-shadow:0 2px 5px #14233a06}
+.question-card-head{display:flex;align-items:center;gap:12px;padding:13px 15px;border-bottom:1px solid #edf0f5;background:#fbfcff}
+.question-number{width:34px;height:34px;border-radius:10px;background:#eaf0ff;color:#315ee7;display:grid;place-items:center;font-weight:850;font-size:12px;flex:none}
+.question-head-title{display:grid;gap:3px;flex:1;min-width:0}
+.question-head-title strong{font-size:13px}
+.question-card .row-actions{flex-wrap:wrap;justify-content:flex-end}
+.question-card .row-actions button{padding:6px 9px;font-size:11px}
+.question-main-field{padding:16px 17px 12px;display:grid;gap:7px}
+.question-main-field label,.question-settings .field>label{font-size:12px;font-weight:800;color:#475569}
+.question-main-field textarea{width:100%;min-height:100px;resize:vertical;border:1px solid #cfd9e8;border-radius:9px;padding:12px;font:inherit;font-size:13px;line-height:1.6;color:#182230}
+.question-main-field textarea:focus{border-color:#7b98f8;outline:3px solid #e7edff}
+.question-settings{padding:0 17px 17px;display:grid;grid-template-columns:90px minmax(120px,.8fr) minmax(190px,1.4fr);gap:14px;align-items:start}
+.question-settings .field{gap:8px}
+.question-settings input[type=number],.question-settings select{width:100%;min-height:40px;border:1px solid #d6deea;border-radius:8px;padding:9px 10px;background:#fff}
+.co-picker{display:flex;flex-wrap:wrap;gap:7px}
+.co-option{display:flex;align-items:center;gap:5px;border:1px solid #dce3ed;border-radius:7px;padding:7px 9px;background:#f8faff;font-size:12px;font-weight:650}
+.co-option input{accent-color:#315ee7}
+.suggestion-line{font-size:12px;font-weight:750;color:#315ee7;line-height:1.45;margin-top:2px}
+.question-card .reason{font-size:11px;line-height:1.5;max-width:none;margin-top:0}
+.section-bottom{display:flex;align-items:center;gap:18px;flex-wrap:wrap;padding:12px 17px;font-size:11px;color:#64748b;border-top:1px solid #e9edf4;background:#fff}
+.section-bottom button{margin-left:auto}
+@media(max-width:1250px){.question-settings{grid-template-columns:75px minmax(100px,.8fr) minmax(170px,1.2fr);gap:10px}}
+@media(max-width:800px){.section-editor-card .section-instructions{grid-template-columns:1fr}.question-settings{grid-template-columns:80px 1fr}.btl-field{grid-column:1/-1}.question-card-head{flex-wrap:wrap}.question-head-title{min-width:150px}.section-bottom button{margin-left:0}}
+
+@media(max-width:1100px){.sidebar{width:200px}.main{margin-left:200px}.content{padding:22px}.grid{grid-template-columns:1fr}.preview-col{position:static;max-height:none;overflow:visible}.topbar{padding:0 22px}}@media(max-width:720px){.sidebar{position:static;width:auto;height:auto;padding:13px;gap:12px}.brand{padding:0}.nav{display:flex;overflow:auto}.nav-label,.sidebar-foot{display:none}.nav button{white-space:nowrap;padding:9px;font-size:12px}.main{margin-left:0}.topbar{position:static;height:56px;padding:0 14px}.content{padding:18px 13px}.page-head{display:block}.page-head>.top-actions{margin-top:14px}.fields{grid-template-columns:1fr}.field.full{grid-column:auto}.stats{gap:7px}.stat{padding:10px}.stat strong{font-size:19px}.preview-paper{padding:15px 10px}.saved-item{align-items:flex-start}.top-actions{gap:5px}.top-actions button{padding:8px;font-size:11px}}
+@media print{body{background:white}.sidebar,.topbar,.no-print,.content>.page-head,.stats,.editor-col,.preview-note{display:none!important}.main{margin:0}.content{padding:0;max-width:none}.page{display:none!important}#createPage{display:block!important}.grid{display:block}.preview-col{display:block!important}.panel.preview-panel{border:0;box-shadow:none;margin:0}.panel.preview-panel>.panel-head{display:none}.panel.preview-panel>.panel-body{padding:0}.preview-paper{box-shadow:none;border:0;padding:0;min-height:0}.paper-head h2{font-size:16px}.preview-paper table{page-break-inside:auto}.preview-paper tr{page-break-inside:avoid;page-break-after:auto}.preview-paper thead{display:table-header-group}.section-preview{page-break-inside:avoid}@page{size:A4;margin:14mm}}
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="sidebar">
+  <div class="brand"><div class="logo">B</div><div><strong>BTL Paper Studio</strong><span>Academic workspace</span></div></div>
+  <div class="nav-label">WORKSPACE</div>
+  <nav class="nav">
+    <button class="active" data-page="dashboard"><span class="ico">▦</span> Dashboard</button>
+    <button data-page="createPage"><span class="ico">＋</span> Create Paper</button>
+    <button data-page="savedPage"><span class="ico">▤</span> Saved Papers</button>
+    <button data-page="assistantPage"><span class="ico">✦</span> Question Assistant</button>
+    <button data-page="settingsPage"><span class="ico">⚙</span> Settings</button>
+  </nav>
+  <div class="sidebar-foot">BTL classification is a suggestion, not an academic decision. Review and approve every result before finalizing a paper.</div>
+</aside>
+<main class="main">
+<header class="topbar"><div class="crumb">Workspace <span style="color:#b2bdcc"> / </span> <strong id="crumbText">Dashboard</strong></div><div class="top-actions"><button class="secondary" onclick="newPaper()">＋ New paper</button><div class="avatar">T</div></div></header>
+<div class="content">
+<section class="page active" id="dashboard">
+  <div class="page-head"><div><div class="eyebrow">TEACHER WORKSPACE</div><h1>Good afternoon.</h1><p class="sub">Create structured examination papers with BTL suggestions built into your workflow.</p></div><button class="primary" onclick="newPaper()">＋ Create question paper</button></div>
+  <div class="stats"><div class="stat"><span>Saved papers on this browser</span><strong id="dashSaved">0</strong><small>Local drafts</small></div><div class="stat"><span>Questions in current draft</span><strong id="dashQuestions">0</strong><small>Across all sections</small></div><div class="stat"><span>BTL review needed</span><strong id="dashReview">0</strong><small>Ambiguous or unapproved</small></div></div>
+  <div class="grid">
+    <div class="panel"><div class="panel-head"><h2>Start creating</h2><span class="pill blue">Quick actions</span></div><div class="panel-body" style="display:grid;gap:12px"><button class="secondary" style="text-align:left;padding:16px" onclick="newPaper()"><strong>＋ Build a question paper</strong><div class="help" style="margin-top:5px">Add course details, sections, marks and questions.</div></button><button class="secondary" style="text-align:left;padding:16px" onclick="showPage('assistantPage')"><strong>✦ Draft a question by BTL</strong><div class="help" style="margin-top:5px">Create a starting point for a target Bloom's level.</div></button><button class="secondary" style="text-align:left;padding:16px" onclick="showPage('savedPage')"><strong>▤ Open a saved paper</strong><div class="help" style="margin-top:5px">Continue a draft saved in this browser.</div></button></div></div>
+    <div class="panel"><div class="panel-head"><h2>Bloom's Taxonomy levels</h2><span class="pill">BTL 1–6</span></div><div class="panel-body" id="taxonomyCards"></div></div>
+  </div>
+  <p class="footer-note">AI classification requires the included backend and OPENAI_API_KEY. Drafts remain in this browser and do not sync between devices.</p>
+</section>
+
+<section class="page" id="createPage">
+  <div class="page-head"><div><div class="eyebrow">PAPER BUILDER</div><h1 id="createTitle">Create question paper</h1><p class="sub">Fill in the details, add sections and classify each question. Your preview updates as you edit.</p></div><div class="top-actions no-print"><button class="secondary" onclick="savePaper()">Save draft</button><button class="primary" onclick="window.print()">Print / Save PDF</button></div></div>
+  <div class="stats"><div class="stat"><span>Questions available</span><strong id="statQuestions">0</strong><small>All sections</small></div><div class="stat"><span>Marks available</span><strong id="statAvailable">0</strong><small>Sum of every question</small></div><div class="stat"><span>Expected paper marks</span><strong id="statExpected">0</strong><small>Based on attempt rules</small></div></div>
+  <div id="marksWarning"></div>
+  <div class="grid">
+    <div class="editor-col">
+      <div class="panel"><div class="panel-head"><h2>01 · Institution & examination details</h2><span class="pill">Editable</span></div><div class="panel-body"><div class="fields">
+        <div class="field full"><label>Institution name</label><input id="institution" placeholder="Enter college / institution name" oninput="renderPreview()"></div>
+        <div class="field full"><label>Affiliation / accreditation (optional)</label><input id="affiliation" placeholder="Affiliated to / accreditation details" oninput="renderPreview()"></div>
+        <div class="field"><label>Department</label><input id="department" placeholder="Department name" oninput="renderPreview()"></div>
+        <div class="field"><label>Examination title</label><input id="examTitle" placeholder="e.g. End Semester Examination" oninput="renderPreview()"></div>
+        <div class="field"><label>Program</label><input id="program" placeholder="e.g. BCA" oninput="renderPreview()"></div>
+        <div class="field"><label>Semester</label><input id="semester" placeholder="e.g. V Semester" oninput="renderPreview()"></div>
+        <div class="field"><label>Academic year</label><input id="academicYear" placeholder="e.g. 2026–27" oninput="renderPreview()"></div>
+        <div class="field"><label>Course code</label><input id="courseCode" placeholder="e.g. BCA501" oninput="renderPreview()"></div>
+        <div class="field full"><label>Course title</label><input id="courseTitle" placeholder="Enter course title" oninput="renderPreview()"></div>
+        <div class="field"><label>Course coordinator (optional)</label><input id="coordinator" placeholder="Name" oninput="renderPreview()"></div>
+        <div class="field"><label>Examination date</label><input id="examDate" type="date" oninput="renderPreview()"></div>
+        <div class="field"><label>Maximum marks</label><input id="maxMarks" type="number" min="0" placeholder="e.g. 60" oninput="renderPreview()"></div>
+        <div class="field"><label>Duration</label><input id="duration" placeholder="e.g. 2 Hours" oninput="renderPreview()"></div>
+        <div class="field full"><label>General instructions (optional)</label><textarea id="instructions" placeholder="Enter examination instructions…" oninput="renderPreview()"></textarea></div>
+      </div></div></div>
+      <div class="panel"><div class="panel-head"><h2>02 · Course outcomes</h2><button class="secondary small" onclick="addOutcome()">＋ Add CO</button></div><div class="panel-body"><p class="help">Enter your institution-approved CO statements. CO assignment and BTL classification are separate.</p><div id="outcomeEditor"></div></div></div>
+      <div class="panel"><div class="panel-head"><h2>03 · Sections & questions</h2><div class="top-actions"><button class="secondary small" onclick="openBatch()">Paste multiple</button><button class="primary small" onclick="addSection()">＋ Add section</button></div></div><div class="panel-body"><div id="sectionsEditor"></div><div class="footer-note"><strong>Automatic BTL:</strong> As you type a question, the suggested BTL number and explanation update immediately in that row. Uses a local language model when Ollama is installed and running. Review ambiguous results before approving.</div></div></div>
+    </div>
+    <div class="preview-col">
+      <div class="panel preview-panel"><div class="panel-head"><h2>Live paper preview</h2><span class="pill green">Always visible · Live</span></div><div class="panel-body"><div class="preview-note">This preview reflects the latest paper details and approved/suggested BTL values. Use Print / Save PDF for a print-ready document.</div><div class="preview-paper" id="paperPreview"></div></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="page" id="savedPage"><div class="page-head"><div><div class="eyebrow">YOUR WORK</div><h1>Saved papers</h1><p class="sub">Drafts are saved only in this browser on this device.</p></div><button class="primary" onclick="newPaper()">＋ New paper</button></div><div class="panel"><div class="panel-head"><h2>Local drafts</h2><button class="secondary small" onclick="exportAll()">Export backup</button></div><div class="panel-body"><div class="saved-list" id="savedList"></div></div></div></section>
+
+<section class="page" id="assistantPage"><div class="page-head"><div><div class="eyebrow">QUESTION ASSISTANT</div><h1>Draft a question by BTL</h1><p class="sub">Generate a starter question for a chosen level. Review the cognitive task before adding it to your paper.</p></div></div><div class="grid"><div class="panel"><div class="panel-head"><h2>Question requirements</h2></div><div class="panel-body"><div class="fields">
+<div class="field full"><label>Subject / course</label><input id="asSubject" placeholder="e.g. Database Management Systems"></div><div class="field full"><label>Topic / syllabus unit</label><input id="asTopic" placeholder="e.g. Normalization"></div><div class="field"><label>Course Outcome</label><select id="asCO"><option value="">Select CO (optional)</option></select></div><div class="field"><label>Target BTL</label><select id="asBTL"><option value="1">BTL 1 · Remember</option><option value="2">BTL 2 · Understand</option><option value="3">BTL 3 · Apply</option><option value="4">BTL 4 · Analyze</option><option value="5">BTL 5 · Evaluate</option><option value="6">BTL 6 · Create</option></select></div><div class="field"><label>Marks</label><input id="asMarks" type="number" min="1" value="5"></div><div class="field"><label>Question type</label><select id="asType"><option>Short answer</option><option>Descriptive</option><option>Application-based</option><option>Case-based</option></select></div><div class="field full"><label>Difficulty (optional)</label><select id="asDifficulty"><option>Moderate</option><option>Easy</option><option>Challenging</option></select></div></div><button class="primary" style="margin-top:18px" onclick="generateQuestion()">Generate draft question</button><div id="assistantResult"></div></div></div><div class="panel"><div class="panel-head"><h2>How to use the assistant</h2></div><div class="panel-body"><p class="sub">The assistant creates a template-style draft. BTL classification uses a free local AI model by default; install and run Ollama to enable it. Use it as a starting point and verify that the task really matches the selected BTL.</p><div id="assistantTaxonomy"></div></div></div></div></section>
+
+<section class="page" id="settingsPage"><div class="page-head"><div><div class="eyebrow">CONFIGURATION</div><h1>Settings</h1><p class="sub">Review the built-in taxonomy and local data options.</p></div></div><div class="panel"><div class="panel-head"><h2>Bloom's Taxonomy</h2><span class="pill">Default framework</span></div><div class="panel-body" id="settingsTaxonomy"></div></div><div class="panel"><div class="panel-head"><h2>Data & privacy</h2></div><div class="panel-body"><p class="sub">Papers are stored in your browser's localStorage. They are not uploaded to a server and do not automatically sync between devices. Clearing browser data may remove saved papers.</p><div class="top-actions" style="margin-top:16px"><button class="secondary" onclick="exportAll()">Export all drafts (JSON)</button><button class="danger" onclick="clearAll()">Delete all local drafts</button></div></div></div></section>
+</div></main>
+</div>
+<div id="toast" class="toast hidden" role="status"></div>
+<div id="batchModal" class="hidden" style="position:fixed;inset:0;background:#10182880;z-index:30;display:none;place-items:center;padding:20px"><div class="panel" style="width:min(600px,100%);margin:0"><div class="panel-head"><h2>Paste multiple questions</h2><button class="secondary small" onclick="closeBatch()">✕</button></div><div class="panel-body"><p class="sub">Put one question on each line. Numbering such as “1.” or “Q2)” is optional. Check the parsed rows after adding.</p><textarea id="batchText" class="batch-box" placeholder="1. Define normalization.&#10;2. Explain the purpose of a primary key.&#10;3. Apply 1NF to the given table."></textarea><div class="top-actions" style="margin-top:12px;justify-content:flex-end"><button class="secondary" onclick="closeBatch()">Cancel</button><button class="primary" onclick="addBatch()">Add questions</button></div></div></div></div>
+<script>
+const taxonomy=[
+{n:1,name:'Remember',desc:'Recall facts, identify terms, list information or state definitions.'},
+{n:2,name:'Understand',desc:'Explain concepts, summarize, interpret meaning or describe ideas.'},
+{n:3,name:'Apply',desc:'Use a method, formula, principle or technique to complete a task.'},
+{n:4,name:'Analyze',desc:'Examine relationships, compare structures, differentiate or investigate causes.'},
+{n:5,name:'Evaluate',desc:'Judge, assess, justify or defend a decision using criteria.'},
+{n:6,name:'Create',desc:'Design, develop, construct, formulate or propose an original solution.'}
+];
+let paper, activeSavedId=null, nextId=1;
+const $=id=>document.getElementById(id);
+function freshPaper(){return {id:null,title:'Untitled question paper',details:{institution:'',affiliation:'',department:'',examTitle:'',program:'',semester:'',academicYear:'',courseCode:'',courseTitle:'',coordinator:'',examDate:'',maxMarks:'',duration:'',instructions:''},outcomes:[{code:'CO1',text:''},{code:'CO2',text:''},{code:'CO3',text:''},{code:'CO4',text:''}],sections:[{id:nextId++,title:'SECTION A',instructions:'Answer all questions.',attempt:'',questions:[newQuestion(),newQuestion()]}]};}
+function newQuestion(){return {id:nextId++,text:'',marks:2,cos:[],suggested:null,approved:null,reason:'',status:'unreviewed',review:true};}
+function escapeHtml(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+function showToast(msg){$('toast').textContent=msg;$('toast').classList.remove('hidden');setTimeout(()=>$('toast').classList.add('hidden'),2500);}
+function showPage(id){document.querySelectorAll('.page').forEach(p=>p.classList.toggle('active',p.id===id));document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===id));$('crumbText').textContent=({dashboard:'Dashboard',createPage:'Create Paper',savedPage:'Saved Papers',assistantPage:'Question Assistant',settingsPage:'Settings'})[id]||'Workspace';if(id==='savedPage')renderSaved();if(id==='dashboard')renderDashboard();}
+document.querySelectorAll('.nav button').forEach(b=>b.addEventListener('click',()=>showPage(b.dataset.page)));
+const classifyTimers = new Map();
+async function runClassify(q,si=null,qi=null){
+ if(!q.text || q.text.trim().length<12){q.suggested=null;q.reason='Enter the complete question before AI classification.';q.review=true;return;}
+ q.classifying=true;
+ if(si!==null && qi!==null){
+  const r=$(`reason-${si}-${qi}`),s=$(`suggestion-${si}-${qi}`),st=$(`status-${si}-${qi}`);
+  if(r)r.textContent='AI is analyzing the complete question…';
+  if(s)s.textContent='AI classification: Analyzing…';
+  if(st)st.innerHTML='<span class="pill blue">AI analyzing</span>';
+ }
+ const submittedText=q.text;
+ try{
+  const response=await fetch('/api/classify',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({
+   question:submittedText,
+   courseTitle:paper?.details?.courseTitle||'',
+   outcomes:(paper?.outcomes||[]).map(o=>({code:o.code,text:o.text})),
+   taxonomy:taxonomy.map(t=>({level:t.n,name:t.name,description:t.desc}))
+  })});
+  const data=await response.json().catch(()=>({}));
+  if(!response.ok)throw new Error(data.error||`AI service error ${response.status}`);
+  if(q.text!==submittedText)return;
+  if(!Number.isInteger(data.level)||data.level<1||data.level>6)throw new Error('AI returned an invalid BTL value.');
+  q.suggested=data.level;q.reason=data.reason||'Review this level against the intended learning outcome.';
+  q.review=Boolean(data.reviewRequired??true);q.confidence=data.confidence||'Low';q.classifying=false;
+  q.status=q.approved===null?'unreviewed':(q.approved===q.suggested?'approved':'override');
+  if(q.status==='override')q.review=true;
+  if(si!==null&&qi!==null){renderSections();renderPreview();}
+ }catch(err){
+  q.classifying=false;q.suggested=null;q.review=true;
+  q.reason=err.message||'Local AI is unavailable. Start Ollama and check the setup guide in README.md.';
+  if(si!==null&&qi!==null){
+   const r=$(`reason-${si}-${qi}`),s=$(`suggestion-${si}-${qi}`),st=$(`status-${si}-${qi}`),sel=$(`btl-${si}-${qi}`);
+   if(r)r.textContent=q.reason;if(s)s.textContent='AI classification unavailable';if(st)st.innerHTML='<span class="pill amber">AI not connected</span>';if(sel&&q.approved===null)sel.value='';
+  }
+  console.warn(err);
+ }
+}
+function liveClassify(si,qi,value){
+ const q=paper.sections[si].questions[qi];q.text=value;q.suggested=null;q.review=true;
+ const key=String(q.id);if(classifyTimers.has(key))clearTimeout(classifyTimers.get(key));
+ const r=$(`reason-${si}-${qi}`),s=$(`suggestion-${si}-${qi}`),st=$(`status-${si}-${qi}`),sel=$(`btl-${si}-${qi}`);
+ if(r)r.textContent=value.trim().length<12?'Keep typing the complete question so the AI has enough context.':'Waiting for you to pause typing…';
+ if(s)s.textContent='AI classification: '+(value.trim().length<12?'Waiting for complete question…':'Will analyze after typing pauses…');
+ if(st)st.innerHTML='<span class="pill amber">Not classified yet</span>';
+ if(sel&&q.approved===null)sel.value='';
+ renderPreview();
+ if(value.trim().length<12)return;
+ classifyTimers.set(key,setTimeout(()=>{const current=paper.sections[si]?.questions[qi];if(current&&current.id===q.id&&current.text===value)runClassify(current,si,qi);},800));
+}
+function updateQuestion(si,qi,key,value){
+ const q=paper.sections[si].questions[qi];q[key]=value;
+ if(key==='text')liveClassify(si,qi,value);
+ else {renderSections();renderPreview();}
+}
+function approveBTL(si,qi,value){
+ const q=paper.sections[si].questions[qi];
+ if(!value){q.approved=null;q.status='unreviewed';q.review=true;}
+ else{q.approved=Number(value);q.status=q.approved===q.suggested?'approved':'override';q.review=q.status!=='approved';}
+ renderSections();renderPreview();
+}
+function reclassify(si,qi){const q=paper.sections[si].questions[qi];if(!q.text.trim()){showToast('Enter a complete question first.');return;}runClassify(q,si,qi);showToast('Sending question to AI for analysis…');}
+function bindDetails(){for(const [k] of Object.entries(paper.details)){const el=$(k);if(el)el.value=paper.details[k]??'';}}
+function readDetails(){for(const k of Object.keys(paper.details)){const el=$(k);if(el)paper.details[k]=el.value;}}
+function newPaper(){paper=freshPaper();activeSavedId=null;bindDetails();renderAll();showPage('createPage');}
+function loadPaper(p){paper=JSON.parse(JSON.stringify(p));activeSavedId=p.id;nextId=Math.max(nextId,...paper.sections.map(s=>s.id+1),...paper.sections.flatMap(s=>s.questions.map(q=>q.id+1)));bindDetails();renderAll();showPage('createPage');}
+function renderAll(){renderOutcomes();renderSections();renderPreview();renderDashboard();renderAssistantCO();}
+function renderOutcomes(){
+ $('outcomeEditor').innerHTML=paper.outcomes.map((o,i)=>`<div class="fields" style="margin-bottom:9px;grid-template-columns:100px 1fr 32px"><div class="field"><label>CO code</label><input value="${escapeHtml(o.code)}" onchange="paper.outcomes[${i}].code=this.value;renderSections();renderPreview();renderAssistantCO()"></div><div class="field"><label>Outcome statement</label><input value="${escapeHtml(o.text)}" placeholder="Enter course outcome" onchange="paper.outcomes[${i}].text=this.value;renderPreview()"></div><button class="secondary small" style="align-self:end" onclick="removeOutcome(${i})" title="Remove outcome">×</button></div>`).join('');
+}
+function addOutcome(){paper.outcomes.push({code:'CO'+(paper.outcomes.length+1),text:''});renderOutcomes();renderSections();renderAssistantCO();}
+function removeOutcome(i){paper.outcomes.splice(i,1);renderOutcomes();renderSections();renderPreview();renderAssistantCO();}
+function renderSections(){
+ const codes=paper.outcomes.map(o=>o.code);
+ $('sectionsEditor').innerHTML=paper.sections.map((s,si)=>`
+ <div class="section-block section-editor-card">
+   <div class="section-block-head">
+     <div class="section-name-wrap"><span class="section-kicker">SECTION ${String.fromCharCode(65+si)}</span><input aria-label="Section title" value="${escapeHtml(s.title)}" onchange="paper.sections[${si}].title=this.value;renderPreview()"></div>
+     <div class="section-controls">
+       <button class="secondary small" onclick="addQuestion(${si})">＋ Add question</button>
+       <button class="secondary small" onclick="moveSection(${si},-1)" ${si===0?'disabled':''} title="Move section up">↑</button>
+       <button class="secondary small" onclick="moveSection(${si},1)" ${si===paper.sections.length-1?'disabled':''} title="Move section down">↓</button>
+       <button class="danger small" onclick="removeSection(${si})">Delete section</button>
+     </div>
+   </div>
+   <div class="section-instructions">
+     <div class="field"><label>Instructions for students</label><input aria-label="Section instructions" value="${escapeHtml(s.instructions)}" placeholder="e.g. Answer all questions" onchange="paper.sections[${si}].instructions=this.value;renderPreview()"></div>
+     <div class="field attempt-field"><label>Number of questions students must attempt</label><input type="number" min="0" max="${s.questions.length}" value="${escapeHtml(s.attempt)}" placeholder="Leave blank to require all" onchange="paper.sections[${si}].attempt=this.value;renderPreview()"><span class="help">Leave blank if students must answer every listed question.</span></div>
+   </div>
+   <div class="question-list">
+     ${s.questions.map((q,qi)=>questionCard(s,si,q,qi,codes)).join('')}
+   </div>
+   <div class="section-bottom">
+     <span>Marks available: <strong>${s.questions.reduce((a,q)=>a+(Number(q.marks)||0),0)}</strong></span>
+     <span>Expected marks: <strong>${sectionExpected(s)}</strong></span>
+     <span>${s.questions.length} question(s)</span>
+     <button class="secondary small" onclick="addQuestion(${si})">＋ Add another question</button>
+   </div>
+ </div>`).join('') || '<div class="empty">No sections yet. Add a section to begin.</div>';
+ updateStats();
+}
+function questionCard(s,si,q,qi,codes){
+ const btl=q.approved??q.suggested;
+ const status=q.status==='approved'?'<span class="pill green">Teacher approved</span>':q.status==='override'?'<span class="pill amber">Manual override · review</span>':q.suggested?'<span class="pill amber">Suggested · review before use</span>':'<span class="pill amber">Waiting for enough context</span>';
+ const options=codes.map(c=>`<label class="co-option"><input type="checkbox" ${q.cos.includes(c)?'checked':''} onchange="toggleCO(${si},${qi},'${escapeHtml(c)}',this.checked)"><span>${escapeHtml(c)}</span></label>`).join('');
+ return `<article class="question-card">
+   <div class="question-card-head"><div class="question-number">Q${qi+1}</div><div class="question-head-title"><strong>Question ${qi+1}</strong><span class="help">Enter the complete question below. BTL updates as you type.</span></div><div class="row-actions"><button class="secondary" title="Move question up" onclick="moveQuestion(${si},${qi},-1)" ${qi===0?'disabled':''}>↑</button><button class="secondary" title="Move question down" onclick="moveQuestion(${si},${qi},1)" ${qi===s.questions.length-1?'disabled':''}>↓</button><button class="secondary" title="Duplicate question" onclick="duplicateQuestion(${si},${qi})">Duplicate</button><button class="danger" title="Delete question" onclick="deleteQuestion(${si},${qi})">Delete</button></div></div>
+   <div class="question-main-field"><label for="question-${si}-${qi}">Question text</label><textarea id="question-${si}-${qi}" aria-label="Question text" placeholder="Type the complete question here…" oninput="liveClassify(${si},${qi},this.value)" onchange="updateQuestion(${si},${qi},'text',this.value)">${escapeHtml(q.text)}</textarea><div class="help">Tip: include the full task and any scenario/data needed to understand what the student must do.</div></div>
+   <div class="question-settings">
+     <div class="field marks-field"><label for="marks-${si}-${qi}">Marks</label><input id="marks-${si}-${qi}" type="number" min="0" value="${escapeHtml(q.marks)}" aria-label="Marks" onchange="updateQuestion(${si},${qi},'marks',this.value)"></div>
+     <div class="field co-field"><label>Course outcome(s)</label><div class="co-picker">${options||'<span class="help">Add course outcomes above.</span>'}</div></div>
+     <div class="field btl-field"><label>BTL classification</label><select class="btl-select" id="btl-${si}-${qi}" aria-label="Approved BTL" onchange="approveBTL(${si},${qi},this.value)"><option value="">Needs review</option>${taxonomy.map(t=>`<option value="${t.n}" ${String(btl)===String(t.n)?'selected':''}>BTL ${t.n} · ${t.name}</option>`).join('')}</select><div class="suggestion-line" id="suggestion-${si}-${qi}">AI suggestion: ${q.suggested?'BTL '+q.suggested+' · '+taxonomy[q.suggested-1].name:'Waiting for question…'}</div><div class="reason" id="reason-${si}-${qi}">${q.reason?escapeHtml(q.reason):'The suggested BTL and explanation will appear here.'}</div><div id="status-${si}-${qi}" style="margin-top:7px">${status}</div><button class="secondary small" style="margin-top:8px" onclick="reclassify(${si},${qi})">Recheck BTL</button></div>
+   </div>
+ </article>`;
+}
+function toggleCO(si,qi,code,checked){const q=paper.sections[si].questions[qi];q.cos=checked?[...new Set([...q.cos,code])]:q.cos.filter(c=>c!==code);renderPreview();}
+function sectionExpected(s){const marks=s.questions.map(q=>Number(q.marks)||0).sort((a,b)=>b-a);const attempt=s.attempt===''?marks.length:Math.max(0,Math.min(marks.length,Number(s.attempt)||0));return marks.slice(0,attempt).reduce((a,b)=>a+b,0);}
+function updateStats(){const qs=paper.sections.flatMap(s=>s.questions);const avail=qs.reduce((a,q)=>a+(Number(q.marks)||0),0);const expected=paper.sections.reduce((a,s)=>a+sectionExpected(s),0);$('statQuestions').textContent=qs.length;$('statAvailable').textContent=avail;$('statExpected').textContent=expected;const max=Number(paper.details.maxMarks);let msg='';if(paper.details.maxMarks!==''&&max!==expected)msg=`<div class="warning"><strong>Marks check:</strong> Expected marks from section attempt rules (${expected}) do not match the configured maximum marks (${max}). Available marks across all listed questions: ${avail}. If questions are optional, these totals may differ intentionally.</div>`;$('marksWarning').innerHTML=msg;}
+function renderPreview(){
+ readDetails();updateStats();
+ const d=paper.details;
+ const detail=(k,label)=>d[k]?`<span><b>${label}:</b> ${escapeHtml(d[k])}</span>`:'';
+ let out=`<div class="paper-head"><h2>${escapeHtml(d.institution||'COLLEGE / INSTITUTION NAME')}</h2>${d.affiliation?`<p>${escapeHtml(d.affiliation)}</p>`:''}${d.department?`<p>${escapeHtml(d.department)}</p>`:''}<h3>${escapeHtml(d.examTitle||'EXAMINATION TITLE')}</h3><p>${escapeHtml(d.program||'Program')} ${d.semester?'· '+escapeHtml(d.semester):''} ${d.academicYear?'· '+escapeHtml(d.academicYear):''}</p><p><b>${escapeHtml(d.courseCode||'COURSE CODE')} — ${escapeHtml(d.courseTitle||'COURSE TITLE')}</b></p></div><div class="paper-meta">${detail('examDate','Date')}${detail('duration','Duration')}${detail('maxMarks','Maximum marks')}${detail('coordinator','Course coordinator')}</div>`;
+ if(d.instructions)out+=`<div class="paper-instructions"><b>Instructions:</b> ${escapeHtml(d.instructions).replace(/\n/g,'<br>')}</div>`;
+ paper.sections.forEach((s,si)=>{const total=s.questions.reduce((a,q)=>a+(Number(q.marks)||0),0);const attempt=s.attempt===''?'Answer all questions':`Answer any ${escapeHtml(s.attempt)} question(s)`;out+=`<div class="section-preview"><h4>${escapeHtml(s.title)} — ${escapeHtml(s.instructions||attempt)} <span style="font-weight:400">(${total} marks available)</span></h4><table><thead><tr><th style="width:8%">Q. No.</th><th>Question</th><th style="width:10%">Marks</th><th style="width:10%">CO(s)</th><th style="width:10%">BTL</th></tr></thead><tbody>${s.questions.map((q,qi)=>`<tr><td>${si+1}.${qi+1}</td><td>${escapeHtml(q.text||'[Question text]')}</td><td>${escapeHtml(q.marks)}</td><td>${escapeHtml(q.cos.join(', ')||'—')}</td><td>${q.approved??q.suggested??'—'}</td></tr>`).join('')}</tbody></table></div>`;});
+ out+=`<div class="paper-footer">— End of Question Paper —</div>`;$('paperPreview').innerHTML=out;
+}
+function openBatch(){$('batchModal').style.display='grid';$('batchModal').classList.remove('hidden');$('batchText').focus();}
+function closeBatch(){$('batchModal').style.display='none';$('batchModal').classList.add('hidden');}
+function addBatch(){const raw=$('batchText').value.trim();if(!raw){showToast('Paste at least one question first.');return}if(!paper.sections.length)addSection();const target=paper.sections[paper.sections.length-1];const lines=raw.split(/\n+/).map(x=>x.trim()).filter(Boolean);lines.forEach(line=>{const q=newQuestion();q.text=line.replace(/^(?:Q(?:uestion)?\s*)?\d+\s*[\).:\-]\s*/i,'');runClassify(q);target.questions.push(q)});renderSections();renderPreview();closeBatch();$('batchText').value='';showToast(lines.length+' question(s) added. Review BTL suggestions.');}
+function savePaper(){readDetails();paper.title=paper.details.courseTitle||paper.details.examTitle||'Untitled question paper';if(!paper.id)paper.id='paper-'+Date.now();const all=getSaved();const i=all.findIndex(x=>x.id===paper.id);const copy=JSON.parse(JSON.stringify(paper));copy.updated=new Date().toISOString();if(i>=0)all[i]=copy;else all.unshift(copy);localStorage.setItem('btl-papers',JSON.stringify(all));activeSavedId=paper.id;renderDashboard();showToast('Draft saved in this browser.');}
+function getSaved(){try{return JSON.parse(localStorage.getItem('btl-papers')||'[]')}catch{return []}}
+function renderSaved(){const all=getSaved();$('savedList').innerHTML=all.length?all.map(p=>`<div class="saved-item"><div><h3>${escapeHtml(p.title||'Untitled paper')}</h3><p>${escapeHtml(p.details?.courseCode||'No course code')} · ${escapeHtml(p.details?.program||'No program')} · ${p.sections?.reduce((n,s)=>n+s.questions.length,0)||0} questions · Updated ${p.updated?new Date(p.updated).toLocaleString():'unknown'}</p></div><div class="top-actions"><button class="secondary small" onclick="openSaved('${p.id}')">Open</button><button class="secondary small" onclick="downloadPaper('${p.id}')">Export</button><button class="danger small" onclick="deleteSaved('${p.id}')">Delete</button></div></div>`).join(''):'<div class="empty">No saved papers yet. Create a paper and select “Save draft”.</div>';}
+function openSaved(id){const p=getSaved().find(x=>x.id===id);if(p)loadPaper(p)}
+function deleteSaved(id){if(!confirm('Delete this saved paper?'))return;localStorage.setItem('btl-papers',JSON.stringify(getSaved().filter(p=>p.id!==id)));renderSaved();renderDashboard();}
+function downloadPaper(id){const p=getSaved().find(x=>x.id===id);if(p)downloadJSON(p,(p.title||'paper')+'.json')}
+function downloadJSON(data,name){const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name.replace(/[^\w.-]+/g,'_');a.click();URL.revokeObjectURL(a.href);}
+function exportAll(){downloadJSON(getSaved(),'btl-paper-studio-backup.json');}
+function clearAll(){if(!confirm('Permanently delete all saved drafts in this browser? Export a backup first if needed.'))return;localStorage.removeItem('btl-papers');renderSaved();renderDashboard();showToast('Local drafts deleted.');}
+function renderDashboard(){const all=getSaved();$('dashSaved').textContent=all.length;const qs=paper?paper.sections.flatMap(s=>s.questions):[];$('dashQuestions').textContent=qs.length;$('dashReview').textContent=qs.filter(q=>q.review||q.approved===null).length;}
+function renderTaxonomy(){const cards=taxonomy.map(t=>`<div style="display:flex;gap:11px;padding:11px 0;border-bottom:1px solid #edf0f5"><div style="width:30px;height:30px;flex:none;border-radius:9px;background:#eaf0ff;color:#315ee7;display:grid;place-items:center;font-weight:850;font-size:12px">${t.n}</div><div><strong style="font-size:13px">BTL ${t.n} · ${t.name}</strong><div class="help" style="margin-top:3px">${t.desc}</div></div></div>`).join('');$('taxonomyCards').innerHTML=cards;$('settingsTaxonomy').innerHTML=cards;$('assistantTaxonomy').innerHTML=cards;}
+function renderAssistantCO(){const s=$('asCO');if(!s)return;const val=s.value;s.innerHTML='<option value="">Select CO (optional)</option>'+paper.outcomes.map(o=>`<option value="${escapeHtml(o.code)}">${escapeHtml(o.code)}</option>`).join('');s.value=val;}
+function generateQuestion(){
+ const subject=$('asSubject').value.trim(),topic=$('asTopic').value.trim(),level=Number($('asBTL').value),marks=Number($('asMarks').value)||1,type=$('asType').value,diff=$('asDifficulty').value,co=$('asCO').value;
+ if(!subject||!topic){$('assistantResult').innerHTML='<div class="warning">Enter both a subject and topic to draft a question.</div>';return}
+ const starts={
+ 1:`Define ${topic} in the context of ${subject}.`,
+ 2:`Explain the key concepts of ${topic} in ${subject}, using an appropriate example.`,
+ 3:`Apply the relevant principles of ${topic} to solve the following problem in ${subject}: [insert problem data].`,
+ 4:`Analyze the components of ${topic} in ${subject} and explain how their relationships affect the outcome.`,
+ 5:`Evaluate the suitability of an approach to ${topic} in ${subject}, using clear criteria and justification.`,
+ 6:`Design a solution involving ${topic} in ${subject}. Explain your design choices and how the solution meets the stated requirements.`
+ };
+ const q=starts[level];$('assistantResult').innerHTML=`<div class="success" style="margin-top:18px">Draft created · BTL ${level} — ${taxonomy[level-1].name}</div><div class="field" style="margin-top:12px"><label>Generated question (editable)</label><textarea id="generatedText" style="min-height:100px">${escapeHtml(q)}</textarea></div><p class="help" style="margin:8px 0">Marks: ${marks} · Type: ${escapeHtml(type)} · Difficulty: ${escapeHtml(diff)}${co?' · '+escapeHtml(co):''}</p><div class="warning">This is a template-based draft, not AI-generated or independently validated. Replace bracketed placeholders and verify the cognitive task before use.</div><button class="primary" onclick="addGeneratedQuestion()">Add to current paper</button>`;
+ window.generatedMeta={level,marks,co};
+}
+function addGeneratedQuestion(){if(!paper){newPaper()}if(!paper.sections.length)addSection();const q=newQuestion();q.text=$('generatedText').value;q.marks=window.generatedMeta?.marks||5;q.cos=window.generatedMeta?.co?[window.generatedMeta.co]:[];runClassify(q);paper.sections[0].questions.push(q);renderSections();renderPreview();showPage('createPage');showToast('Draft question added. Review its BTL suggestion.');}
+paper=freshPaper();bindDetails();renderTaxonomy();renderAll();showPage('dashboard');
+</script>
+</body>
+</html>
