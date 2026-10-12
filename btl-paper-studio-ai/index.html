@@ -68,7 +68,7 @@
     <div class="panel"><div class="panel-head"><h2>Start creating</h2><span class="pill blue">Quick actions</span></div><div class="panel-body" style="display:grid;gap:12px"><button class="secondary" style="text-align:left;padding:16px" onclick="newPaper()"><strong>＋ Build a question paper</strong><div class="help" style="margin-top:5px">Add course details, sections, marks and questions.</div></button><button class="secondary" style="text-align:left;padding:16px" onclick="showPage('assistantPage')"><strong>✦ Draft a question by BTL</strong><div class="help" style="margin-top:5px">Create a starting point for a target Bloom's level.</div></button><button class="secondary" style="text-align:left;padding:16px" onclick="showPage('savedPage')"><strong>▤ Open a saved paper</strong><div class="help" style="margin-top:5px">Continue a draft saved in this browser.</div></button></div></div>
     <div class="panel"><div class="panel-head"><h2>Bloom's Taxonomy levels</h2><span class="pill">BTL 1–6</span></div><div class="panel-body" id="taxonomyCards"></div></div>
   </div>
-  <p class="footer-note">AI classification requires the included backend and OPENAI_API_KEY. Drafts remain in this browser and do not sync between devices.</p>
+  <p class="footer-note">BTL classification uses the included backend and local Ollama model. Drafts remain in this browser and do not sync between devices.</p>
 </section>
 
 <section class="page" id="createPage">
@@ -130,9 +130,22 @@ function showToast(msg){$('toast').textContent=msg;$('toast').classList.remove('
 function showPage(id){document.querySelectorAll('.page').forEach(p=>p.classList.toggle('active',p.id===id));document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===id));$('crumbText').textContent=({dashboard:'Dashboard',createPage:'Create Paper',savedPage:'Saved Papers',assistantPage:'Question Assistant',settingsPage:'Settings'})[id]||'Workspace';if(id==='savedPage')renderSaved();if(id==='dashboard')renderDashboard();}
 document.querySelectorAll('.nav button').forEach(b=>b.addEventListener('click',()=>showPage(b.dataset.page)));
 const classifyTimers = new Map();
+function findQuestionLocation(question){
+ for(let si=0;si<paper.sections.length;si++){
+  const qi=paper.sections[si].questions.indexOf(question);
+  if(qi!==-1)return {sectionIndex:si,questionIndex:qi};
+ }
+ return null;
+}
+function clearQuestionTimer(question){
+ const key=String(question.id);
+ if(classifyTimers.has(key)){clearTimeout(classifyTimers.get(key));classifyTimers.delete(key);}
+}
 async function runClassify(q,si=null,qi=null){
  if(!q.text || q.text.trim().length<12){q.suggested=null;q.reason='Enter the complete question before AI classification.';q.review=true;return;}
  q.classifying=true;
+ const location=findQuestionLocation(q);
+ if(location){si=location.sectionIndex;qi=location.questionIndex;}
  if(si!==null && qi!==null){
   const r=$(`reason-${si}-${qi}`),s=$(`suggestion-${si}-${qi}`),st=$(`status-${si}-${qi}`);
   if(r)r.textContent='AI is analyzing the complete question…';
@@ -149,7 +162,7 @@ async function runClassify(q,si=null,qi=null){
   })});
   const data=await response.json().catch(()=>({}));
   if(!response.ok)throw new Error(data.error||`AI service error ${response.status}`);
-  if(q.text!==submittedText)return;
+  if(q.text!==submittedText||!findQuestionLocation(q))return;
   if(!Number.isInteger(data.level)||data.level<1||data.level>6)throw new Error('AI returned an invalid BTL value.');
   q.suggested=data.level;q.reason=data.reason||'Review this level against the intended learning outcome.';
   q.review=Boolean(data.reviewRequired??true);q.confidence=data.confidence||'Low';q.classifying=false;
@@ -157,6 +170,9 @@ async function runClassify(q,si=null,qi=null){
   if(q.status==='override')q.review=true;
   if(si!==null&&qi!==null){renderSections();renderPreview();}
  }catch(err){
+  const location=findQuestionLocation(q);
+  if(!location)return;
+  si=location.sectionIndex;qi=location.questionIndex;
   q.classifying=false;q.suggested=null;q.review=true;
   q.reason=err.message||'Local AI is unavailable. Start Ollama and check the setup guide in README.md.';
   if(si!==null&&qi!==null){
@@ -168,7 +184,7 @@ async function runClassify(q,si=null,qi=null){
 }
 function liveClassify(si,qi,value){
  const q=paper.sections[si].questions[qi];q.text=value;q.suggested=null;q.review=true;
- const key=String(q.id);if(classifyTimers.has(key))clearTimeout(classifyTimers.get(key));
+ const key=String(q.id);clearQuestionTimer(q);
  const r=$(`reason-${si}-${qi}`),s=$(`suggestion-${si}-${qi}`),st=$(`status-${si}-${qi}`),sel=$(`btl-${si}-${qi}`);
  if(r)r.textContent=value.trim().length<12?'Keep typing the complete question so the AI has enough context.':'Waiting for you to pause typing…';
  if(s)s.textContent='AI classification: '+(value.trim().length<12?'Waiting for complete question…':'Will analyze after typing pauses…');
@@ -176,7 +192,11 @@ function liveClassify(si,qi,value){
  if(sel&&q.approved===null)sel.value='';
  renderPreview();
  if(value.trim().length<12)return;
- classifyTimers.set(key,setTimeout(()=>{const current=paper.sections[si]?.questions[qi];if(current&&current.id===q.id&&current.text===value)runClassify(current,si,qi);},800));
+ classifyTimers.set(key,setTimeout(()=>{
+  classifyTimers.delete(key);
+  const location=findQuestionLocation(q);
+  if(location&&q.text===value)runClassify(q,location.sectionIndex,location.questionIndex);
+ },800));
 }
 function updateQuestion(si,qi,key,value){
  const q=paper.sections[si].questions[qi];q[key]=value;
@@ -200,12 +220,63 @@ function renderOutcomes(){
 }
 function addOutcome(){paper.outcomes.push({code:'CO'+(paper.outcomes.length+1),text:''});renderOutcomes();renderSections();renderAssistantCO();}
 function removeOutcome(i){paper.outcomes.splice(i,1);renderOutcomes();renderSections();renderPreview();renderAssistantCO();}
+function sectionLabel(index){
+ let label='';
+ for(let value=index+1;value>0;value=Math.floor((value-1)/26))label=String.fromCharCode(65+(value-1)%26)+label;
+ return label;
+}
+function refreshPaperViews(){renderSections();renderPreview();renderDashboard();}
+function addQuestion(si){
+ const section=paper.sections[si];
+ if(!section)return;
+ section.questions.push(newQuestion());
+ refreshPaperViews();
+}
+function addSection(){
+ const label=sectionLabel(paper.sections.length);
+ paper.sections.push({id:nextId++,title:`SECTION ${label}`,instructions:'Answer all questions.',attempt:'',questions:[newQuestion()]});
+ refreshPaperViews();
+}
+function deleteQuestion(si,qi){
+ const question=paper.sections[si]?.questions[qi];
+ if(!question)return;
+ clearQuestionTimer(question);
+ paper.sections[si].questions.splice(qi,1);
+ refreshPaperViews();
+}
+function removeSection(si){
+ const section=paper.sections[si];
+ if(!section)return;
+ section.questions.forEach(clearQuestionTimer);
+ paper.sections.splice(si,1);
+ refreshPaperViews();
+}
+function moveQuestion(si,qi,direction){
+ const questions=paper.sections[si]?.questions;
+ const destination=qi+direction;
+ if(!questions||destination<0||destination>=questions.length)return;
+ [questions[qi],questions[destination]]=[questions[destination],questions[qi]];
+ refreshPaperViews();
+}
+function moveSection(si,direction){
+ const destination=si+direction;
+ if(destination<0||destination>=paper.sections.length)return;
+ [paper.sections[si],paper.sections[destination]]=[paper.sections[destination],paper.sections[si]];
+ refreshPaperViews();
+}
+function duplicateQuestion(si,qi){
+ const section=paper.sections[si],source=section?.questions[qi];
+ if(!source)return;
+ const copy={...source,id:nextId++,cos:[...source.cos]};
+ section.questions.splice(qi+1,0,copy);
+ refreshPaperViews();
+}
 function renderSections(){
  const codes=paper.outcomes.map(o=>o.code);
  $('sectionsEditor').innerHTML=paper.sections.map((s,si)=>`
  <div class="section-block section-editor-card">
    <div class="section-block-head">
-     <div class="section-name-wrap"><span class="section-kicker">SECTION ${String.fromCharCode(65+si)}</span><input aria-label="Section title" value="${escapeHtml(s.title)}" onchange="paper.sections[${si}].title=this.value;renderPreview()"></div>
+    <div class="section-name-wrap"><span class="section-kicker">SECTION ${sectionLabel(si)}</span><input aria-label="Section title" value="${escapeHtml(s.title)}" onchange="paper.sections[${si}].title=this.value;renderPreview()"></div>
      <div class="section-controls">
        <button class="secondary small" onclick="addQuestion(${si})">＋ Add question</button>
        <button class="secondary small" onclick="moveSection(${si},-1)" ${si===0?'disabled':''} title="Move section up">↑</button>
